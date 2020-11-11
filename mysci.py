@@ -1,6 +1,15 @@
+
+
+# Column names and column indices to read
+columns = {'date':0, 'time':1, 'tempout':2}
+
+# Data types for each column (only if non-string)
+types = {'tempout': float}
+
 # Initialize my data variable
-data = {'date':[], 'time':[], 'tempout':[]}
-#time = data['time'] # if you just want to pull out time
+data = {}
+for column in columns:
+    data[column] = []
 
 # Read the data file
 filename = "./data/wxobs20170821.txt"
@@ -18,14 +27,15 @@ with open(filename,'r') as datafile:
     for line in datafile: 
         split_line = line.split() #string.split() allows you to split a string at a given character.  () means you're splitting along white space.  
                              # if you have a comma separated file you'd use datum = line.split(',')
-        data['date'].append(split_line[0])
-        data['time'].append(split_line[1])
-        data['tempout'].append(float(split_line[2]))
+        for column in columns:
+            i = columns[column]
+            t = types.get(column, str) #this is going to try to pull out the key column from the dictionary.   If it fails, it's going to return the value str instead of what it would return.
+            value = t(split_line[i])
+            data[column].append(value)
+
 
 #DEBUG
-print(data['tempout'])
-
-
+#print(data['tempout'])
 
 # This doesn't work... because data[5:8] doesn't have a 4th element.  The 4 is indexing a new list 5:8
 #print(data[5:8][4])
