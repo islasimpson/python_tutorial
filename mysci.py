@@ -1,10 +1,10 @@
 
 
 # Column names and column indices to read
-columns = {'date':0, 'time':1, 'tempout':2}
+columns = {'date':0, 'time':1, 'tempout':2, 'windspeed':7}
 
 # Data types for each column (only if non-string)
-types = {'tempout': float}
+types = {'tempout': float, 'windspeed':float}
 
 # Initialize my data variable
 data = {}
@@ -21,7 +21,8 @@ with open(filename,'r') as datafile:
     for _ in range(3): # underscore is a placeholder. Can be any variable, but the underscore is typically used when you're never going to use this variable.
     # for i in [0,1,2]: would be equivalent but range is a little cleaner.
         print(_)
-        datafile.readline()
+        headerline = datafile.readline()
+        print(headerline)
 
     # Read and parse the rest of the file
     for line in datafile: 
